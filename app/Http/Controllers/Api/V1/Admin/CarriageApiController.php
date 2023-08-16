@@ -13,11 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CarriageApiController extends Controller
 {
-    public function index()
+    public function index($train_id)
     {
-        abort_if(Gate::denies('carriage_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return new CarriageResource(Carriage::with(['train'])->get());
+        return Carriage::where('train_id', $train_id)->get();
     }
 
     public function store(StoreCarriageRequest $request)

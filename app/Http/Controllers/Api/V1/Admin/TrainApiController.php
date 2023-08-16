@@ -15,7 +15,7 @@ class TrainApiController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('train_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('train_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new TrainResource(Train::with(['train_type'])->get());
     }

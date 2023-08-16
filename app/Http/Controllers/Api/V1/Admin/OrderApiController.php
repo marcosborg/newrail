@@ -13,11 +13,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OrderApiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new OrderResource(Order::with(['user', 'carriage'])->get());
+    }
+
+    public function myOrders(Request $request)
+    {
+        return Order::where('user_id', $request->user()->id)->get();
     }
 
     public function store(StoreOrderRequest $request)
@@ -31,7 +36,7 @@ class OrderApiController extends Controller
 
     public function show(Order $order)
     {
-        abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return new OrderResource($order->load(['user', 'carriage']));
     }
@@ -52,5 +57,14 @@ class OrderApiController extends Controller
         $order->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function confirmReceived($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->received = true;
+        $order->save();
+
+        return $order;
     }
 }

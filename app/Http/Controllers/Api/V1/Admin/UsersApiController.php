@@ -20,6 +20,33 @@ class UsersApiController extends Controller
         return new UserResource(User::with(['roles'])->get());
     }
 
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
+
+    public function userUpdate(Request $request)
+    {
+        if ($request->password) {
+            $request->validate([
+                'name' => 'required',
+                'password' => 'required|min:6|confirmed'
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required',
+            ]);
+        }
+
+        $user = User::find($request->user()->id);
+        $user->name = $request->name;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return $user;
+
+    }
+
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->all());
