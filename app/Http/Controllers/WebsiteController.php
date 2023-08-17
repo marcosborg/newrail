@@ -49,4 +49,15 @@ class WebsiteController extends Controller
 
         return $request;
     }
+
+    public function politicaPrivacidade()
+    {
+        return view('politica_privacidade');
+    }
+
+    public function termosCondicoes()
+    {
+
+    }
+
 }

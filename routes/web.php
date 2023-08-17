@@ -3,6 +3,8 @@
 Route::prefix('/')->group(function () {
     Route::get('/', 'WebsiteController@index');
     Route::post('form-contact', 'WebsiteController@formContact');
+    Route::get('politica-privacidade', 'WebsiteController@politicaPrivacidade');
+    Route::get('termos-condicoes', 'WebsiteController@termosCondicoes');
 });
 Route::get('/home', function () {
     if (session('status')) {
