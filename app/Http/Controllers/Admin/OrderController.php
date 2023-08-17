@@ -21,7 +21,7 @@ class OrderController extends Controller
         abort_if(Gate::denies('order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Order::with(['user', 'carriage'])->select(sprintf('%s.*', (new Order)->table));
+            $query = Order::with(['user', 'carriage.train'])->select(sprintf('%s.*', (new Order)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -52,6 +52,11 @@ class OrderController extends Controller
             $table->editColumn('user.email', function ($row) {
                 return $row->user ? (is_string($row->user) ? $row->user : $row->user->email) : '';
             });
+
+            $table->addColumn('train_name', function ($row) {
+                return $row->carriage->train ? $row->carriage->train->name : '';
+            });
+
             $table->addColumn('carriage_name', function ($row) {
                 return $row->carriage ? $row->carriage->name : '';
             });
@@ -59,20 +64,18 @@ class OrderController extends Controller
             $table->editColumn('seat', function ($row) {
                 return $row->seat ? $row->seat : '';
             });
-            $table->editColumn('cart', function ($row) {
-                return $row->cart ? $row->cart : '';
-            });
             $table->editColumn('total', function ($row) {
                 return $row->total ? $row->total : '';
             });
-            $table->editColumn('received', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->received ? 'checked' : null) . '>';
-            });
+            
             $table->editColumn('preparing', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->preparing ? 'checked' : null) . '>';
             });
             $table->editColumn('delivered', function ($row) {
                 return '<input type="checkbox" disabled ' . ($row->delivered ? 'checked' : null) . '>';
+            });
+            $table->editColumn('received', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->received ? 'checked' : null) . '>';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'user', 'carriage', 'received', 'preparing', 'delivered']);
@@ -125,7 +128,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $order->load('user', 'carriage');
+        $order->load('user', 'carriage.train');
 
         return view('admin.orders.show', compact('order'));
     }

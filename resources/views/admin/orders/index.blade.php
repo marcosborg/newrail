@@ -31,25 +31,25 @@
                         {{ trans('cruds.user.fields.email') }}
                     </th>
                     <th>
+                        Train
+                    </th>
+                    <th>
                         {{ trans('cruds.order.fields.carriage') }}
                     </th>
                     <th>
                         {{ trans('cruds.order.fields.seat') }}
                     </th>
                     <th>
-                        {{ trans('cruds.order.fields.cart') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.order.fields.total') }}
                     </th>
                     <th>
-                        {{ trans('cruds.order.fields.received') }}
+                        Em preparação
                     </th>
                     <th>
-                        {{ trans('cruds.order.fields.preparing') }}
+                        Em entrega
                     </th>
                     <th>
-                        {{ trans('cruds.order.fields.delivered') }}
+                        Entregue
                     </th>
                     <th>
                         &nbsp;
@@ -110,13 +110,13 @@
 { data: 'id', name: 'id' },
 { data: 'user_name', name: 'user.name' },
 { data: 'user.email', name: 'user.email' },
+{ data: 'train_name', name: 'carriage.train.name' },
 { data: 'carriage_name', name: 'carriage.name' },
 { data: 'seat', name: 'seat' },
-{ data: 'cart', name: 'cart' },
 { data: 'total', name: 'total' },
-{ data: 'received', name: 'received' },
 { data: 'preparing', name: 'preparing' },
 { data: 'delivered', name: 'delivered' },
+{ data: 'received', name: 'received' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

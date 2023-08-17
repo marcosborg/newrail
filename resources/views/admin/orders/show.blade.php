@@ -33,6 +33,14 @@
                     </tr>
                     <tr>
                         <th>
+                            Train
+                        </th>
+                        <td>
+                            {{ $order->carriage->train->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.order.fields.carriage') }}
                         </th>
                         <td>
@@ -52,7 +60,13 @@
                             {{ trans('cruds.order.fields.cart') }}
                         </th>
                         <td>
-                            {{ $order->cart }}
+                            <ul class="list-group">
+                                @foreach (json_decode($order->cart) as $item)
+                                <li class="list-group-item">
+                                    {{ $item->name }} - {{ $item->quantity }} x {{ $item->price }}€
+                                </li>
+                                @endforeach
+                            </ul>
                         </td>
                     </tr>
                     <tr>
@@ -60,7 +74,7 @@
                             {{ trans('cruds.order.fields.total') }}
                         </th>
                         <td>
-                            {{ $order->total }}
+                            {{ $order->total }} €
                         </td>
                     </tr>
                     <tr>
