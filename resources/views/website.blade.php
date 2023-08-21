@@ -176,17 +176,17 @@
                 <div class="info">
                     <div>
                         <i class="bi bi-geo-alt"></i>
-                        <p>A108 Adam Street<br>New York, NY 535022</p>
+                        <p>Rua Bica do Sapato Cais 01<br>1100-353 Lisboa<br>Santa Apolónia.</p>
                     </div>
 
                     <div>
                         <i class="bi bi-envelope"></i>
-                        <p>info@example.com</p>
+                        <p>comercial@newrail.pt</p>
                     </div>
 
                     <div>
                         <i class="bi bi-phone"></i>
-                        <p>+1 5589 55488 55s</p>
+                        <p>+351 937 758 003</p>
                     </div>
 
                 </div>
